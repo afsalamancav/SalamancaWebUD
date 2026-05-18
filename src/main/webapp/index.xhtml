@@ -1,0 +1,265 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://jakarta.ee/jsf/html"
+      xmlns:f="http://jakarta.ee/jsf/core">
+    <h:head>
+        <title>Sistema de Aspirantes UD - Angelo Salamanca</title>
+        <style>
+            * { box-sizing: border-box; margin: 0; padding: 0; }
+
+            body {
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+                background: #f0f4f8;
+                color: #333;
+            }
+
+            .container {
+                max-width: 950px;
+                margin: 40px auto;
+                padding: 0 20px;
+            }
+
+            /* CARD */
+            .card {
+                background: white;
+                border-radius: 10px;
+                box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+                margin-bottom: 30px;
+                overflow: hidden;
+            }
+
+            .card-header-primary {
+                background-color: #004663;
+                color: white;
+                padding: 20px;
+                text-align: center;
+            }
+
+            .card-header-primary h4 {
+                font-size: 1.5rem;
+                font-weight: 600;
+            }
+
+            .card-header-secondary {
+                background-color: #6c757d;
+                color: white;
+                padding: 14px 20px;
+                text-align: center;
+            }
+
+            .card-header-secondary h5 {
+                font-size: 1.1rem;
+                font-weight: 600;
+            }
+
+            .card-body {
+                padding: 30px;
+            }
+
+            /* FORM GRID */
+            .form-grid {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+
+            .form-group {
+                display: flex;
+                flex-direction: column;
+            }
+
+            .form-group label {
+                font-size: 0.875rem;
+                font-weight: 600;
+                color: #444;
+                margin-bottom: 6px;
+            }
+
+            .form-group input,
+            .form-group select {
+                padding: 10px 14px;
+                border: 1.5px solid #ced4da;
+                border-radius: 6px;
+                font-size: 0.95rem;
+                color: #333;
+                background: #fff;
+                transition: border-color 0.2s;
+                width: 100%;
+            }
+
+            .form-group input:focus,
+            .form-group select:focus {
+                outline: none;
+                border-color: #004663;
+                box-shadow: 0 0 0 3px rgba(0,70,99,0.1);
+            }
+
+            /* BUTTON */
+            .btn-submit {
+                margin-top: 24px;
+                width: 100%;
+                padding: 12px;
+                background-color: #0066cc;
+                color: white;
+                border: none;
+                border-radius: 6px;
+                font-size: 1rem;
+                font-weight: 600;
+                cursor: pointer;
+                transition: background 0.2s;
+            }
+
+            .btn-submit:hover {
+                background-color: #004663;
+            }
+
+            /* TABLE */
+            .tabla-aspirantes {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.9rem;
+            }
+
+            .tabla-aspirantes th {
+                background-color: #004663;
+                color: white;
+                padding: 12px 16px;
+                text-align: left;
+                font-weight: 600;
+            }
+
+            .tabla-aspirantes td {
+                padding: 11px 16px;
+                border-bottom: 1px solid #e9ecef;
+                color: #444;
+            }
+
+            .tabla-aspirantes tr:nth-child(even) td {
+                background-color: #f8f9fa;
+            }
+
+            .tabla-aspirantes tr:hover td {
+                background-color: #e8f4f8;
+            }
+
+            .badge {
+                display: inline-block;
+                padding: 4px 10px;
+                background-color: #17a2b8;
+                color: white;
+                border-radius: 20px;
+                font-size: 0.78rem;
+                font-weight: 600;
+            }
+
+            /* FOOTER */
+            footer {
+                margin-top: 40px;
+                padding: 24px;
+                text-align: center;
+                border-top: 1px solid #dee2e6;
+                color: #6c757d;
+                font-size: 0.9rem;
+                line-height: 1.8;
+            }
+
+            footer strong {
+                color: #333;
+            }
+        </style>
+    </h:head>
+    <h:body>
+        <div class="container">
+
+            <!-- CARD REGISTRO -->
+            <div class="card">
+                <div class="card-header-primary">
+                    <h4>Registro de Aspirantes - Universidad Distrital</h4>
+                </div>
+                <div class="card-body">
+                    <h:form id="formAspirante">
+                        <div class="form-grid">
+
+                            <div class="form-group">
+                                <h:outputLabel for="id" value="Identificación:"/>
+                                <h:inputText id="id"
+                                             value="#{aspiranteBean.aspirante.identificacion}"
+                                             required="true"/>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="nombres" value="Nombres Completos:"/>
+                                <h:inputText id="nombres"
+                                             value="#{aspiranteBean.aspirante.nombres}"
+                                             required="true"/>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="correo" value="Correo Electrónico:"/>
+                                <h:inputText id="correo"
+                                             value="#{aspiranteBean.aspirante.correo}"
+                                             required="true">
+                                    <f:validateRegex pattern="^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$"/>
+                                </h:inputText>
+                            </div>
+
+                            <div class="form-group">
+                                <h:outputLabel for="programa" value="Programa de Interés:"/>
+                                <h:selectOneMenu id="programa"
+                                                 value="#{aspiranteBean.aspirante.programaInteres}"
+                                                 required="true">
+                                    <f:selectItem itemLabel="-- Seleccione un programa --" itemValue=""/>
+                                    <f:selectItems value="#{aspiranteBean.programas}"/>
+                                </h:selectOneMenu>
+                            </div>
+
+                        </div>
+
+                        <h:commandButton value="Registrar Aspirante"
+                                         action="#{aspiranteBean.registrar()}"
+                                         styleClass="btn-submit"/>
+                    </h:form>
+                </div>
+            </div>
+
+            <!-- CARD LISTA -->
+            <div class="card">
+                <div class="card-header-secondary">
+                    <h5>Lista de Aspirantes Registrados</h5>
+                </div>
+                <div class="card-body" style="padding: 0;">
+                    <h:dataTable value="#{aspiranteBean.listaAspirantes}"
+                                 var="est"
+                                 styleClass="tabla-aspirantes"
+                                 headerClass="tabla-header">
+                        <h:column>
+                            <f:facet name="header">ID</f:facet>
+                            #{est.identificacion}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Nombre</f:facet>
+                            #{est.nombres}
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Programa</f:facet>
+                            <span class="badge">#{est.programaInteres}</span>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">Contacto</f:facet>
+                            <h:outputText value="#{est.correo}"/>
+                        </h:column>
+                    </h:dataTable>
+                </div>
+            </div>
+
+            <!-- FOOTER -->
+            <footer>
+                <p><strong>Angelo Felipe Salamanca Vargas</strong></p>
+                <p>Sistematización de Datos - Universidad Distrital</p>
+                <p>2026</p>
+            </footer>
+
+        </div>
+    </h:body>
+</html>

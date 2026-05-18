@@ -1,0 +1,22 @@
+/target/
+*.class
+.mtj.tmp/
+*.jar
+*.war
+*.ear
+*.nar
+*.car
+*.zip
+*.tar.gz
+*.rar
+
+# Carpetas de IDEs (NetBeans, Eclipse, IntelliJ)
+.nbworkspace/
+/nbproject/private/
+/build/
+.metadata/
+.classpath
+.project
+.settings/
+.idea/
+*.iml
